@@ -1,0 +1,150 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+:root {
+  --primary-font: 'Poppins', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--primary-font);
+}
+
+.app {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  min-height: 100vh;
+}
+
+a {
+  text-decoration: none;
+  color: initial;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #A3D9FF;
+  color: white;
+}
+
+header > ul > * {
+  font-size: 1.5rem;
+  margin: 0 20px;
+  color: white;
+}
+
+header h1 {
+  margin: 0 20px;
+}
+
+ul {
+  display: flex;
+  flex-direction: row;
+}
+
+li {
+  list-style: none;
+}
+
+.hover:hover {
+  color: gray
+}
+
+.home-page {
+  display: grid;
+  grid-template-areas:
+  'teams teams teams teams ladder'
+  'teams teams teams teams ladder';
+}
+
+.ladder {
+  grid-area: ladder;
+  margin: 50px auto
+}
+
+h2 {
+  transition: transform .2s ease
+}
+
+h2:hover {
+  transform: scale(1.1);
+}
+
+.teams {
+  grid-area: teams
+}
+
+.matches, .teams {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 40px;
+  padding: 50px;
+}
+
+.match, .team {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: rgb(211, 211, 211);
+  border-radius: 10px 10px;
+}
+
+.match {
+  min-height: 250px;
+}
+
+.team {
+  padding: 20px;
+}
+
+.win {
+  box-shadow: 0 5px green;
+}
+
+.loss {
+  box-shadow: 0 5px red;
+}
+
+.back-button {
+  background-color: rgb(37, 88, 255);
+  color: white;
+  text-transform: uppercase;
+  cursor: pointer;
+  padding: 10px;
+  border: none;
+  margin: 10px 50px;
+  transition: transform .4s ease
+}
+
+.back-button:hover {
+  transform: translateX(-6px) ;
+}
+
+.page-title {
+  margin: 0 50px;
+}
+
+footer {
+  background-color: lightgray;
+}
+
+@media screen and (max-width: 700px) {
+  .home-page {
+    grid-template-columns: 1fr;
+    grid-template-areas: none;
+  }
+  .ladder, .teams {
+    grid-area: unset;
+  }
+  .ladder{
+    font-size: .9rem
+  }
+}
