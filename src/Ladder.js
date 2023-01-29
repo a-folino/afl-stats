@@ -37,7 +37,7 @@ const Ladder = () => {
                 {ladder.map(team => (
                     <tr key={team.id}>
                         <td>{team.rank}</td>
-                        <td><Link to={`/team/${team.id}`}>{team.name}</Link></td>
+                        <td><Link to={`/team/${team.id}`} className="hover">{team.name}</Link></td>
                         <td>{team.wins}</td>
                         <td>{team.losses}</td>
                         <td>{team.draws}</td>
