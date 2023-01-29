@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -25,20 +26,21 @@ const TeamMatches = () => {
     }, [id])
 
     const handlePageTitle = ()=> {
-        if (id == games[0].hteamid) {
-            return games[0].hteam
+        if (id == games[0].hteamid && !isLoading) {
+            return games[0].hteam + ' games'
+        } else if (id == games[0].ateamid && !isLoading) {
+            return games[0].ateam + ' games'
         } else {
-            return games[0].ateam
+            return <p>loading...</p>
         }
     }
-
     
     return ( 
         <div className="matches-page">
             {!isLoading &&
                 <>
                     <button className="back-button" onClick={() => navigate(-1)}>Back</button>
-                    <h1 className="page-title">{handlePageTitle()} games</h1>
+                    <h1 className="page-title">{handlePageTitle()}</h1>
                     <div className="matches">
                         {games.map(game => (
                             <div key={game.id} className={`match ${id == game.winnerteamid ? 'win' : 'loss'}`}>
