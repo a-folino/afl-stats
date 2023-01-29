@@ -1,53 +1,47 @@
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useParams, useNavigate } from "react-router-dom";
 
 
-const Ladder = () => {
-    let [ladder, setLadder] = useState([]);
+const RoundMatches = () => {
+    const {id} = useParams();
+    let [rounds, setRounds] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         try {
-            const loadLadder = async () => {
-                const response = await fetch(`https://api.squiggle.com.au/?q=standings;year=2022`);
+            const loadRound = async () => {
+                const response = await fetch(`https://api.squiggle.com.au/?q=games;year=2022;round=${id}`);
                 if (!response.ok) throw Error('API NOT WORKING');
                 const data = await response.json();
-                setLadder(data.standings);
-            }
-
-            loadLadder()
+                setRounds(data.games);
+            };
+            
+            loadRound()
         } catch (err) {
             console.log(err)
         }
     }, [])
 
     return ( 
-        <div className="ladder">
-            <table>
-                <thead>
-                    <tr>
-                        <td>Rank</td>
-                        <td>Team</td>
-                        <td>Wins</td>
-                        <td>Losses</td>
-                        <td>Draws</td>
-                        <td>Percentage</td>
-                    </tr>
-                </thead>
-                <tbody>
-                {ladder.map(team => (
-                    <tr key={team.id}>
-                        <td>{team.rank}</td>
-                        <td><Link to={`/team/${team.id}`} className="hover">{team.name}</Link></td>
-                        <td>{team.wins}</td>
-                        <td>{team.losses}</td>
-                        <td>{team.draws}</td>
-                        <td>{team.percentage.toFixed(2)}</td>
-                    </tr>
-                ))}
-                </tbody>
-            </table>
+        <div className="rounds-page">
+        <button onClick={() => navigate(-1)} className="back-button">Back</button>
+        <h1 className="page-title">Games in Round {id}</h1>
+        <div className="dropdown-menu">
+
+        </div>
+            <div className="matches">
+                {rounds.map(round => (
+                    <div className="match" key={round.id}>
+                        <span><Link to={`/team/${round.hteamid}`}><h2 className="hover">{round.hteam}</h2></Link> vs <Link to={`/team/${round.ateamid}`}><h2 className="hover">{round.ateam}</h2></Link></span>
+                        <p>{round.hgoals}.{round.hbehinds} ({round.hscore}) - {round.agoals}.{round.abehinds} ({round.ascore})</p>
+                        <p>{round.venue}</p>
+                        <p>{round.date}</p>
+                    </div>
+                    ))
+                }
+            </div>
         </div>
     );
 }
  
-export default Ladder;
+export default RoundMatches;
