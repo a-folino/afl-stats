@@ -2,6 +2,8 @@
 
 Web app I made that displays data from the 2022 AFL season. Built for functionality, only basic styles have been applied.
 
+Displays teams, games of each team, games by round and league standings.
+
 ### `npm start`
 
 Runs the app in the development mode.\
